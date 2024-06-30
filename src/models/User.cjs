@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
     verify: DataTypes.BOOLEAN,
     password: DataTypes.STRING,  
+    createdAt: DataTypes.DATE,
+    updateddAt: DataTypes.DATE
   }, {});
 
   user.associate = function(models) {    
