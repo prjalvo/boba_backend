@@ -5,12 +5,14 @@ export default {
      * to use as your default connection for all database work. 
      */
     connection : process.env.DB_CONNECTION || "postgres",
+    
+    dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false // Use this option for self-signed certificates
+        }
+      },   
 
-
-    /**
-     * Here you may specify the host address of database which will be
-     * used for connection
-     */
     host  : process.env.DB_HOST || "dpg-cq0momuehbks73ee6sjg-a.oregon-postgres.render.com",
 
     
