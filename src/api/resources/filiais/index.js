@@ -1,1 +1,1 @@
-export { authRouter } from './auth.router.js';
+export { filiaisRouter } from './filiais.router.js';
