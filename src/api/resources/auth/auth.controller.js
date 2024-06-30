@@ -42,7 +42,7 @@ function verifyOtp(token) {
 
 export default {
     async addUser(req, res, next) {
-        const { firstName, email, phone, id_cargo,id_distrito,id_area,id_setor,status, verify, role ,password,url_file,lider_celula } = req.body;
+        const { firstName, email,role ,password } = req.body;
         var passwordHash = bcrypt.hashSync(password);
         var token = generateOtp();
         var otp = verifyOtp(token);
@@ -53,25 +53,15 @@ export default {
                 }
                 return db.user.create({
                     firstName: firstName,                    
-                    email: email,
-                    phone: phone,               
-                    id_cargo: id_cargo,
-                    id_distrito: id_distrito,
-                    id_area: id_area,
-                    id_setor: id_setor,
-                    status: status,                    
-                    verify: verify,
+                    email: email,                   
                     role: role,
-                    password: passwordHash,
-                    url_file:url_file,
-                    lider_celula:lider_celula
+                    password: passwordHash                   
                 })
 
             })
             .then(user => {
-                if (user) {
-//                     mailer.sendEmployeePassword(email, token);
-                    return res.status(200).json({ success: true, key: otp, msg: "New Registration added and password has been sent to " + email + " ." });
+                if (user) {//                    
+                    return res.status(200).json({ success: true, key: otp, msg: "New Registration added and password has been sent " });
                 }
                 else
                     res.status(500).json({ 'success': false });
@@ -114,7 +104,7 @@ export default {
     },
 
      async userUpdate(req,res,next){
-        const { id, firstName, email, phone, id_cargo,id_distrito,id_area,id_setor, status, verify, role ,password,url_file,lider_celula } = req.body;
+        const { id, firstName, email, role ,password } = req.body;
         if (password !== null) {
           var passwordHash = bcrypt.hashSync(password);
         }    
@@ -128,15 +118,7 @@ export default {
                     phone: phone ? phone: user.phone,
                     email: email ? email: user.email,
                     password: password ? passwordHash: user.passwordHash,              
-                    role: role ? role: user.role,
-                    verify : verify? verify: user.verify,
-                    id_cargo: id_cargo ? id_cargo : user.id_cargo,
-                    id_distrito: id_distrito ? id_distrito : user.id_distrito,
-                    id_area: id_area ? id_area : user.id_area,
-                    id_setor: id_setor ? id_setor : user.id_setor,                    
-                    status: status,
-                    url_file: url_file ? url_file : user.url_file,
-                    lider_celula: lider_celula ? lider_celula : user.lider_celula
+                    role: role ? role: user.role                  
                 }, { where: { id: id } })
             })
             .then(user => {
