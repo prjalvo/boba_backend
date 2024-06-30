@@ -11,7 +11,7 @@ export default {
      * Here you may specify the host address of database which will be
      * used for connection
      */
-    host  : process.env.DB_HOST || "postgresql://dpg-cq0momuehbks73ee6sjg-a.oregon-postgres.render.com",
+    host  : process.env.DB_HOST || "dpg-cq0momuehbks73ee6sjg-a.oregon-postgres.render.com",
 
     
     /**
