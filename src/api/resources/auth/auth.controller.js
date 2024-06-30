@@ -83,7 +83,7 @@ export default {
     },
 
     async findUser(req,res,next){
-        db.user.findOne({ attributes:["firstName","lastName"], where: { email: req.query.email }, paranoid: false })
+        db.user.findOne({ attributes:["firstName"], where: { email: req.query.email }, paranoid: false })
         .then(user => {
             if (user) {
                 return res.status(200).json({ success: true, data:user});
@@ -98,11 +98,7 @@ export default {
     },
 
      async getAllUserList(req,res,next){
-        db.user.findAll({
-           include: [{ model: db.cargo, attributes: ["id", "descricao"]},
-                      { model: db.areas,as:"user_area",attributes: ["id", "descricao","tipo"]},
-                      { model: db.areas,as:"user_setor",attributes: ["id", "descricao","tipo"]},
-                      { model: db.areas,as:"user_distrito",attributes: ["id", "descricao","tipo"]}]
+        db.user.findAll({        
         })
         .then(user => {
             if (user) {
@@ -165,7 +161,7 @@ export default {
             httpOnly: true, secure: config.secure
         });
         
-        return res.status(200).json({ success: true ,token,role: req.user.role,firstName: req.user.firstName,id_lider: req.user.id});
+        return res.status(200).json({ success: true ,token,role: req.user.role,firstName: req.user.firstName});
     },
 
      async deleteUserList(req, res, next) {
