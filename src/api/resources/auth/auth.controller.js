@@ -114,8 +114,7 @@ export default {
                     throw new RequestError('User is not found', 409);
                 }
                 return db.user.update({
-                    firstName: firstName ? firstName: user.firstName,
-                    phone: phone ? phone: user.phone,
+                    firstName: firstName ? firstName: user.firstName,            
                     email: email ? email: user.email,
                     password: password ? passwordHash: user.passwordHash,              
                     role: role ? role: user.role                  
