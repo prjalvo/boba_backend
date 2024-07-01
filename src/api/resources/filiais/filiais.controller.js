@@ -31,8 +31,7 @@ export default {
             })
             .then(user => {
                 if (user) {
-//                     mailer.sendEmployeePassword(email, token);
-                    return res.status(200).json({ success: true, key: otp, msg: "New Registration added and password has been sent to " + email + " ." });
+//                   return res.status(200).json({ success: true, msg: "New Registration added." });
                 }
                 else
                     res.status(500).json({ 'success': false });
