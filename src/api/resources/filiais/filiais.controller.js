@@ -59,9 +59,9 @@ export default {
     },
 
      async filiaisUpdate(req,res,next){
-        const { id, nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
+        const { nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
         
-        db.filiais.findOne({ where: { id: id }, paranoid: false })
+        db.filiais.findOne({ where: { cd_estabelecimento: id }, paranoid: false })
             .then(user => {
                 if (!user) {
                     throw new RequestError('User is not found', 409);
@@ -90,10 +90,10 @@ export default {
             })
     },
       async deleteFiliais(req, res, next) {
-        db.filiais.findOne({ where: { id: req.body.id} })
+        db.filiais.findOne({ where: { cd_estabelecimento: req.body.id} })
             .then(data => {
                 if (data) {
-                    return db.filiais.destroy({ where: { id: req.body.id } }).then(r => [r, data])
+                    return db.filiais.destroy({ where: { cd_estabelecimento: req.body.id } }).then(r => [r, data])
                 }
                 throw new RequestError('User is not found', 409)
             })
