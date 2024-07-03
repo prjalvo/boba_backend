@@ -63,12 +63,7 @@ export default {
             } = req.body;
           
             try {
-              const find = await db.produtos.findOne({ where: { codigo: codigo }, paranoid: false });
-          
-              if (find) {
-                throw new Error('Produto já cadastrado');
-              }
-          
+              transaction = await db.sequelize.transaction();          
               const produto = await db.produtos.create({
                 aliquota_cofins,
                 aliquota_ibpt,
@@ -118,7 +113,9 @@ export default {
                 tipoItem,
                 unidade,
                 valor_unitario
-              });
+              }, { transaction });
+
+               await transaction.commit();  
           
               if (produto) {
                 return res.status(200).json({ success: true, msg: "Produto cadastrado com sucesso." });
@@ -127,6 +124,7 @@ export default {
               }
             } catch (err) {
               console.error(err);
+              if (transaction) await transaction.rollback();
               next(err);
             }
           },
