@@ -145,7 +145,7 @@ export default {
     },
 
     async getallprodutosid(req,res,next){
-        db.produtos.findOne({ where: { codigo_produto: req.query.codigo_produto }, paranoid: false })
+        db.produtos.findOne({ where: { ean: req.query.ean }, paranoid: false })
         .then(produto => {
             if (produto) {
                 return res.status(200).json({ success: true, data:produto});
