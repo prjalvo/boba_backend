@@ -61,7 +61,7 @@ export default {
               unidade,
               valor_unitario
             } = req.body;
-          
+            let transaction;
             try {
               transaction = await db.sequelize.transaction();          
               const produto = await db.produtos.create({
