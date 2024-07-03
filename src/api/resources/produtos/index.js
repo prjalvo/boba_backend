@@ -1,0 +1,1 @@
+export { produtosRouter } from './produtos.router.js';
