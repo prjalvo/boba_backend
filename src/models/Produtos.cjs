@@ -48,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT
     },
     codigo_produto: {
-      type: DataTypes.BIGINT
-    },
+      type: DataTypes.BIGINT,primaryKey: true
+    }, 
     codigo_produto_integracao: {
       type: DataTypes.STRING
     },
