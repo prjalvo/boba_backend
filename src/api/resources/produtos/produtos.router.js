@@ -7,4 +7,4 @@ import { validateBody, schemas } from '../../../middleware/validator.js';
 export const produtosRouter = express.Router();
 produtosRouter.route('/register').post(produtosController.addProdutos);
 produtosRouter.route('/getallprodutos').get(jwtStrategy, produtosController.getallprodutos);
-produtosRouter.route('/getallprodutosid').get(jwtStrategy, produtosController.getallprodutosid);
+produtosRouter.route('/getallprodutosid').get(produtosController.getallprodutosid);
