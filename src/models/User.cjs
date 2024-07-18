@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   }, 
   {
-    schema: 'rede_verde',  
+    // schema: 'rede_verde',  
   }
   );
 
