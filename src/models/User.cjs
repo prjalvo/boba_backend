@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   }, 
+  {
+    schema: 'rede_verde',  
+  }
                               
   {});
 
