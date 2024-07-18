@@ -13,7 +13,7 @@ export default {
         }
       },   
 
-    host  : process.env.DB_HOST || "dpg-cq0momuehbks73ee6sjg-a.oregon-postgres.render.com",
+    host  : process.env.DB_HOST || "185.228.72.82",
 
     
     /**
@@ -27,19 +27,19 @@ export default {
      * Here you may specify the database name of connection which will be
      * used for connection
      */
-    database  : process.env.DB_DATABASE || "bdbaoba",
+    database  : process.env.DB_DATABASE || "iba",
 
     
     /**
      * Here you may specify the username of database which will be
      * used for connection
      */
-    username : process.env.DB_USERNAME || "esrocha",
+    username : process.env.DB_USERNAME || "iba_verde",
 
     
     /**
      * Here you may specify the password of database which will be
      * used for connection
      */
-    password : process.env.DB_PASSWORD || "a4EFNmcHLhBFZDKDWeZqkNfd54qAIrZA",
+    password : process.env.DB_PASSWORD || "Matvdt68#",
 }
