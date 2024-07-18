@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     schema: 'rede_verde',  
   }
-                              
-  {});
+  );
 
   user.associate = function(models) {    
   };
