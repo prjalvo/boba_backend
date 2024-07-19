@@ -140,7 +140,7 @@ export default {
                 if ( cd_estabelecimento == 8 ) {
                   app_key = process.env.ApiKey_SP
                   app_secret = process.env.ApiSecret_SP
-                } else if ( cd_estabelecimento ==5 ) {    
+                } else if ( cd_estabelecimento == 5 ) {    
                   app_key = process.env.ApiKey_ES
                   app_secret = process.env.ApiSecret_ES
                 } else {    
