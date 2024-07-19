@@ -233,7 +233,8 @@ export default {
            try {
             const { cd_stabelecimento } = req.body;
             //truncateprodutos(cd_stabelecimento);
-            //return db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })    
+            //return db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })  
+            console.log("Estabelecimento: ",cd_estabelecimento)
             const produtos = await this.listarProdutos(cd_estabelecimento);        
             for (const produto of produtos) {
               await new Promise(resolve => {
