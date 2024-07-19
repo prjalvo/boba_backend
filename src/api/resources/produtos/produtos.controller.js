@@ -266,8 +266,9 @@ export default {
         })
     },
 
-    async truncateprodutos(req, res, next) {             
-          return db.produto.destroy({ where:{} })           
+    async truncateprodutos(req, res, next) {        
+          const { cd_stabelecimento } = req.body;
+          return db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })           
           .then(re => {
               return res.status(200).json({ 'status': "Produto detelado" });
           }).catch(err => {
