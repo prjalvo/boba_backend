@@ -232,7 +232,8 @@ export default {
       async Inserirprodutos(req,res,next){
            try {
             const { cd_stabelecimento } = req.body;
-            truncateprodutos(cd_stabelecimento);
+            //truncateprodutos(cd_stabelecimento);
+            db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })    
             const produtos = await listarProdutos(cd_estabelecimento);        
             for (const produto of produtos) {
               await new Promise(resolve => {
