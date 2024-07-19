@@ -236,28 +236,26 @@ export default {
             res.status(500).json({ success: false, message: 'Erro ao listar produtos.' });
           }
         },    
-
-    async getallprodutos(req,res,next){
-        db.produtos.findOne({ paranoid: false })
-        .then(produto => {
-            if (produto) {
-                return res.status(200).json({ success: true, data:produto});
-            }
-            else
-                res.status(500).json({ 'success': false });
-        })
-        .catch(err => {
-            console.log(err)
-            next(err);
-        })
-    },
-
+   async getAllProdutos(req, res, next) {
+    try {
+        const produtos = await db.produtos.findAll({ paranoid: false });
+        
+        if (produtos) {
+            return res.status(200).json({ success: true, data: produtos });
+        } else {
+            return res.status(404).json({ success: false, message: 'Nenhum produto encontrado.' });
+        }
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+  },
     async getallprodutosid(req,res,next){
         const { ean } = req.body;
         db.produtos.findOne({ where: { ean: ean }, paranoid: false })
-        .then(produto => {
-            if (produto) {
-                return res.status(200).json({ success: true, data:produto});
+        .then(produtos => {
+            if (produtos) {
+                return res.status(200).json({ success: true, data:produtos});
             }
             else
                 res.status(500).json({ 'success': false });
