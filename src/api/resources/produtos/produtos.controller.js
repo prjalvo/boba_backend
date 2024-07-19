@@ -223,7 +223,7 @@ export default {
           };
         
           try {
-            this.addProdutos(produto1)
+            addProdutos(produto1)
           } catch (error) {
             console.error('Erro ao cadastrar produto:', error);
           }
@@ -232,7 +232,7 @@ export default {
       async Inserirprodutos(req,res,next){
            try {
             const { cd_stabelecimento } = req.body;
-            this.truncateprodutos(cd_stabelecimento);
+            truncateprodutos(cd_stabelecimento);
             const produtos = await listarProdutos(cd_estabelecimento);        
             for (const produto of produtos) {
               await new Promise(resolve => {
