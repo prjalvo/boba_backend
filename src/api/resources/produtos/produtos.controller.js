@@ -129,13 +129,24 @@ export default {
             }
           },
 
-          async listarProdutos() {
+          async listarProdutos(cd_estabelecimento) {
             try {
                 let pagina = 1;
                 const registrosPorPagina = 1000;
                 let totalDeRegistros = 0;
                 let todosProdutos = [];
-        
+                let app_key=""
+                let app_secret="" 
+                if ( cd_estabelecimento == 8 ) {
+                  app_key = process.env.ApiKey_SP
+                  app_secret = process.env.ApiSecret_SP
+                } else if ( cd_estabelecimento ==5 ) {    
+                  app_key = process.env.ApiKey_ES
+                  app_secret = process.env.ApiSecret_ES
+                } else {    
+                  app_key = process.env.ApiKey_RJ
+                  app_secret = process.env.ApiSecret_RJ
+                }
                 do {
                     const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
                         call: 'ListarProdutos',
@@ -220,8 +231,9 @@ export default {
 
       async Inserirprodutos(req,res,next){
            try {
-            this.truncateprodutos()
-            const produtos = await listarProdutos();        
+            const { cd_stabelecimento } = req.body;
+            this.truncateprodutos(cd_stabelecimento);
+            const produtos = await listarProdutos(cd_estabelecimento);        
             for (const produto of produtos) {
               await new Promise(resolve => {
                 setTimeout(() => {
@@ -266,8 +278,7 @@ export default {
         })
     },
 
-    async truncateprodutos(req, res, next) {        
-          const { cd_stabelecimento } = req.body;
+    async truncateprodutos(cd_stabelecimento) {
           return db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })           
           .then(re => {
               return res.status(200).json({ 'status': "Produto detelado" });
