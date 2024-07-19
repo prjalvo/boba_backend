@@ -5,6 +5,6 @@ import { sanitize } from '../../../middleware/sanitizer.js';
 import { validateBody, schemas } from '../../../middleware/validator.js';
 
 export const produtosRouter = express.Router();
-produtosRouter.route('/register').post(produtosController.addProdutos);
+produtosRouter.route('/register').post(produtosController.Inserirprodutos);
 produtosRouter.route('/getallprodutos').get(jwtStrategy, produtosController.getallprodutos);
 produtosRouter.route('/getallprodutosid').post(produtosController.getallprodutosid);

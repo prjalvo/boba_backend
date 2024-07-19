@@ -129,6 +129,114 @@ export default {
             }
           },
 
+          async listarProdutos() {
+            try {
+                let pagina = 1;
+                const registrosPorPagina = 1000;
+                let totalDeRegistros = 0;
+                let todosProdutos = [];
+        
+                do {
+                    const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
+                        call: 'ListarProdutos',
+                        app_key: app_key,
+                        app_secret: app_secret,
+                        param: [{ pagina: pagina, registros_por_pagina: registrosPorPagina, apenas_importado_api: 'N', filtrar_apenas_omiepdv: 'N'  }]
+                    });
+        
+                    const produtos = response.data.produto_servico_cadastro; 
+                    totalDeRegistros = response.data.total_de_registros;
+                    todosProdutos = todosProdutos.concat(produtos);
+        
+                    pagina++;
+                } while (todosProdutos.length < totalDeRegistros);
+        
+                return todosProdutos;
+        
+            } catch (error) {
+                console.error('Erro ao listar produtos:', error);
+                return [];
+            }
+        },
+
+        async Produto(produto) {
+          const produto1 = {
+            aliquota_cofins: produto.aliquota_cofins,
+            aliquota_ibpt: produto.aliquota_ibpt,
+            aliquota_icms: produto.aliquota_icms,
+            aliquota_pis: produto.aliquota_pis,
+            altura: produto.altura,
+            bloqueado: produto.bloqueado,
+            bloquear_exclusao: produto.bloquear_exclusao,
+            cest: produto.cest,
+            cfop: produto.cfop,
+            codInt_familia: produto.codInt_familia,
+            codigo: produto.codigo,
+            codigo_beneficio: produto.codigo_beneficio,
+            codigo_familia: produto.codigo_familia,
+            codigo_produto: produto.codigo_produto,
+            codigo_produto_integracao: produto.codigo_produto_integracao,
+            csosn_icms: produto.csosn_icms,
+            cst_cofins: produto.cst_cofins,
+            cst_icms: produto.cst_icms,
+            cst_pis: produto.cst_pis,
+            descr_detalhada: produto.descr_detalhada,
+            descricao: produto.descricao,
+            descricao_familia: produto.descricao_familia,
+            dias_crossdocking: produto.dias_crossdocking,
+            dias_garantia: produto.dias_garantia,
+            ean: produto.ean,
+            estoque_minimo: produto.estoque_minimo,
+            exibir_descricao_nfe: produto.exibir_descricao_nfe,
+            exibir_descricao_pedido: produto.exibir_descricao_pedido,
+            importado_api: produto.importado_api,
+            inativo: produto.inativo,
+            largura: produto.largura,
+            lead_time: produto.lead_time,
+            marca: produto.marca,
+            modelo: produto.modelo,
+            motivo_deson_icms: produto.motivo_deson_icms,
+            ncm: produto.ncm,
+            obs_internas: produto.obs_internas,
+            per_icms_fcp: produto.per_icms_fcp,
+            peso_bruto: produto.peso_bruto,
+            peso_liq: produto.peso_liq,
+            profundidade: produto.profundidade,
+            quantidade_estoque: produto.quantidade_estoque,
+            red_base_cofins: produto.red_base_cofins,
+            red_base_icms: produto.red_base_icms,
+            red_base_pis: produto.red_base_pis,
+            tipoItem: produto.tipoItem,
+            unidade: produto.unidade,
+            valor_unitario: produto.valor_unitario
+          };
+        
+          try {
+            this.addProdutos(produto1)
+          } catch (error) {
+            console.error('Erro ao cadastrar produto:', error);
+          }
+        },
+
+      async Inserirprodutos(req,res,next){
+           try {
+            this.truncateprodutos()
+            const produtos = await listarProdutos();        
+            for (const produto of produtos) {
+              await new Promise(resolve => {
+                setTimeout(() => {
+                  this.Produto(produto);
+                  resolve();
+                }, 1000); 
+              });
+            }        
+            res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
+          } catch (error) {
+            console.error('Erro ao listar produtos:', error);
+            res.status(500).json({ success: false, message: 'Erro ao listar produtos.' });
+          }
+        },    
+
     async getallprodutos(req,res,next){
         db.produtos.findOne({ paranoid: false })
         .then(produto => {
@@ -158,7 +266,16 @@ export default {
             console.log(err)
             next(err);
         })
-    }
+    },
+
+    async truncateprodutos(req, res, next) {             
+          return db.produto.destroy({ where:{} })           
+          .then(re => {
+              return res.status(200).json({ 'status': "Produto detelado" });
+          }).catch(err => {
+              next(err)
+          })
+  },
 }
 
 
