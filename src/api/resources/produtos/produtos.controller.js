@@ -33,7 +33,6 @@ export default {
           app_secret = process.env.ApiSecret_RJ;
         }
 
-       console.log('Chaves: ',app_key,app_secret) 
        do {
         const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
           call: 'ListarProdutos',
