@@ -13,7 +13,7 @@ export default {
   async InserirProdutos(req, res, next) {
     try {
       const { cd_estabelecimento } = req.body;
-      await this.truncateprodutos(cd_estabelecimento, res, next);            
+      await this.truncateprodutos(cd_estabelecimento,next);            
       console.log("Estabelecimento: ", cd_estabelecimento);
       const produtos = await this.listarProdutos(req.body, next);  
       await this.truncateprodutos("Produtos Listados", res, next);  
@@ -42,7 +42,7 @@ export default {
       let todosProdutos = [];
       let app_key = "";
       let app_secret = "";
-
+      console.log(cd_estabelecimento)
       if (cd_estabelecimento === 15) {
         app_key = process.env.ApiKey_SP;
         app_secret = process.env.ApiSecret_SP;
@@ -81,9 +81,9 @@ export default {
     }
   },
 
-  async truncateprodutos(cd_estabelecimento, res, next) {
+  async truncateprodutos({ cd_estabelecimento }, next) {
   try {
-    await db.produtos.destroy({ where: { cd_estabelecimento } });
+    await db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } });
     return res.status(200).json({ 'status': "Produto deletado" });
   } catch (err) {
     next(err);
