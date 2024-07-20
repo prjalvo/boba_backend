@@ -20,7 +20,7 @@ async function truncateprodutos(cd_estabelecimento,res, next) {
   
 
 
-export default {       
+module.exports = {       
       async InserirProdutos(req,res,next){
            try {
             const { cd_estabelecimento } = req.body;
