@@ -17,7 +17,7 @@ export default {
       let totalDeRegistros = 0;
       let todosProdutos = [];
       let app_key=""
-      app_secret="" 
+      let app_secret="" 
    
       const { cd_estabelecimento } = req.body;
       await db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } });            
