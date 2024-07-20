@@ -37,7 +37,7 @@ export default {
             res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
           } catch (error) {
             console.error('Erro ao listar produtos:', error);
-            res.status(500).json({ success: false, message: 'Erro ao listar produtos.' });
+            res.status(500).json({ success: false, message: 'Erro ao inserir produtos.' });
           }
         },    
 
