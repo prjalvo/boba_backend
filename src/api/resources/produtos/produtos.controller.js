@@ -192,7 +192,7 @@ export default {
             const { cd_estabelecimento } = req.body;
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
-            const produtos = await listarProdutos(cd_estabelecimento,next);  
+            const produtos = await listarProdutos(cd_estabelecimento, next.bind(this));  
             //await listarProdutos(cd_estabelecimento) 
             truncateprodutos("Produtos Listados");  
             for (const produto of produtosall) {
