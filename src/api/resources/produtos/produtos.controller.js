@@ -13,7 +13,7 @@ export default {
   async InserirProdutos(req, res, next) {
      try {
       let pagina = 1;
-      const registrosPorPagina = 1000;
+      const registrosPorPagina = 50;
       let totalDeRegistros = 0;
       let todosProdutos = [];
       let app_key=""
