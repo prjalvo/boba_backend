@@ -59,7 +59,7 @@ const listarProdutos = async (cd_estabelecimento,res, next) => {
       pagina++;
     } while (todosProdutos.length < totalDeRegistros);
 
-    return todosProdutos;
+    //return todosProdutos;
   } catch (error) {
     console.error('Erro ao listar produtos:', error);
     return [];
