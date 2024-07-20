@@ -9,8 +9,8 @@ import util from 'util';
 import axios from 'axios'
 
 
-async function truncateprodutos(cd_stabelecimento) {
-  return db.produtos.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })           
+async function truncateprodutos(cd_estabelecimento) {
+  return db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } })           
   .then(re => {
       return res.status(200).json({ 'status': "Produto detelado" });
   }).catch(err => {
@@ -183,10 +183,10 @@ async function listarProdutos  (cd_estabelecimento) {
 export default {       
       async InserirProdutos(req,res,next){
            try {
-            const { cd_stabelecimento } = req.body;
-            truncateprodutos(cd_stabelecimento);            
-            console.log("Estabelecimento: ",cd_stabelecimento)
-            const produtos = await listarProdutos(cd_stabelecimento);        
+            const { cd_estabelecimento } = req.body;
+            truncateprodutos(cd_estabelecimento);            
+            console.log("Estabelecimento: ",cd_estabelecimento)
+            const produtos = await listarProdutos(cd_estabelecimento);        
             for (const produto of produtos) {
               await new Promise(resolve => {
                 setTimeout(() => {
