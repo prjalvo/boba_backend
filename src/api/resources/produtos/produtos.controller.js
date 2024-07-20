@@ -51,7 +51,7 @@ export default {
             apenas_importado_api: 'N',
             filtrar_apenas_omiepdv: 'N'
           }]
-        }));
+        });
 
         const produtos = response.data.produto_servico_cadastro;
         totalDeRegistros = response.data.total_de_registros;
