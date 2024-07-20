@@ -13,7 +13,7 @@ export default {
   async InserirProdutos(req, res, next) {
      try {
       let pagina = 1;
-      const registrosPorPagina = 1000;
+      const registrosPorPagina = 10;
       let totalDeRegistros = 0;
       let todosProdutos = [];
       let app_key=""
@@ -53,7 +53,8 @@ export default {
         
         pagina++;
       } while (todosProdutos.length < totalDeRegistros); 
-      
+       
+      console.log('Chaves: ',app_key,app_secret) 
       for (const produto of todosProdutos) {
         await this.addProdutos(produto);           
       }
