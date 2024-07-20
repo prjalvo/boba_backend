@@ -36,7 +36,7 @@ async function listarProdutos  (cd_estabelecimento) {
         app_key = process.env.ApiKey_RJ
         app_secret = process.env.ApiSecret_RJ
       }
-      truncateprodutos('Chaves',app_key,app_secret); 
+      console.log('Chaves',app_key,app_secret); 
     
       do {
           const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
