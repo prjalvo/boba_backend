@@ -17,7 +17,7 @@ async function truncateprodutos(cd_estabelecimento,res, next) {
   })
 }
 
-const listarProdutos = async (cd_estabelecimento,res, next) => {
+const listarProdutos = async (cd_estabelecimento,next) => {
   try {
     let pagina = 1;
     const registrosPorPagina = 1000;
@@ -192,7 +192,7 @@ export default {
             const { cd_estabelecimento } = req.body;
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
-            const produtos = await listarProdutos(cd_estabelecimento);  
+            const produtos = await listarProdutos(cd_estabelecimento,next);  
             //await listarProdutos(cd_estabelecimento) 
             truncateprodutos("Produtos Listados");  
             for (const produto of produtosall) {
