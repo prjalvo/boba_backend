@@ -7,7 +7,7 @@ import speakeasy from 'speakeasy';
 import { validateEmail } from './../../../functions.js'
 import util from 'util';
 import axios from 'axios'
-produtosall=[]
+let produtosall = []
 
 async function truncateprodutos(cd_estabelecimento,res, next) {
   return db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } })           
