@@ -43,8 +43,8 @@ const listarProdutos = async (cd_estabelecimento,next) => {
         app_key: app_key,
         app_secret: app_secret,
         param: [{
-          pagina: pagina,
-          registros_por_pagina: registrosPorPagina,
+          pagina: 1,
+          registros_por_pagina: 500,
           apenas_importado_api: 'N',
           filtrar_apenas_omiepdv: 'N'
         }]
