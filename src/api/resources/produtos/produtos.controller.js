@@ -23,7 +23,7 @@ export default {
             const { cd_estabelecimento } = req.body;
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
-            const produtos = await this.listarProdutos(cd_estabelecimento);  
+            const produtos = await this.listarProdutos(req.body);  
             //await listarProdutos(cd_estabelecimento) 
             truncateprodutos("Produtos Listados");  
             for (const produto of produtosall) {
@@ -41,8 +41,9 @@ export default {
           }
         },    
 
-  async listarProdutos(cd_estabelecimento) {
+  async listarProdutos(req,res,next) {
   try {
+    const { cd_estabelecimento } = req.body;
     let pagina = 1;
     const registrosPorPagina = 1000;
     let totalDeRegistros = 0;
