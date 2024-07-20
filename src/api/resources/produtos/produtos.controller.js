@@ -59,12 +59,7 @@ export default {
        
       console.log('Chaves: ',app_key,app_secret) 
       for (const produto of todosProdutos) {
-        await new Promise(resolve => {
-        setTimeout(() => {
-          addProduto(produto);
-          resolve();
-        }, 1000); // 1000 milliseconds = 1 segundo
-        });        
+        console.log(produto.descricao)
       }
 
       res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
