@@ -11,50 +11,26 @@ import axios from 'axios';
 
 export default {
   async InserirProdutos(req, res, next) {
-    try {
-      const { cd_estabelecimento } = req.body;
-      //await this.truncateprodutos(cd_estabelecimento,next);            
-      console.log("Estabelecimento: ", cd_estabelecimento);
-      const produtos = await this.listarProdutos(req.body, next);  
-      await this.truncateprodutos("Produtos Listados", res, next);  
-
-      for (const produto of produtos) {
-        await new Promise(resolve => {
-          setTimeout(async () => {
-            await this.addProdutos(produto);
-            resolve();
-          }, 1000); 
-        });
-      }
-
-      res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
-    } catch (error) {
-      console.error('Erro ao listar produtos:', error);
-      res.status(500).json({ success: false, message: 'Erro ao inserir produtos.' });
-    }
-  },
-
-  async listarProdutos({ cd_estabelecimento }, next) {
-    try {
       let pagina = 1;
       const registrosPorPagina = 1000;
       let totalDeRegistros = 0;
       let todosProdutos = [];
-      let app_key = "";
-      let app_secret = "";
-      console.log(cd_estabelecimento)
-      if (cd_estabelecimento === 15) {
-        app_key = process.env.ApiKey_SP;
-        app_secret = process.env.ApiSecret_SP;
-      } else if (cd_estabelecimento === 5) {
-        app_key = process.env.ApiKey_ES;
-        app_secret = process.env.ApiSecret_ES;
-      } else {
-        app_key = process.env.ApiKey_RJ;
-        app_secret = process.env.ApiSecret_RJ;
-      }
+    try {
+      const { cd_estabelecimento } = req.body;
+      await db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } });            
+      console.log("Estabelecimento: ", cd_estabelecimento);
+        if (cd_estabelecimento === 15) {
+          app_key = process.env.ApiKey_SP;
+          app_secret = process.env.ApiSecret_SP;
+        } else if (cd_estabelecimento === 5) {
+          app_key = process.env.ApiKey_ES;
+          app_secret = process.env.ApiSecret_ES;
+        } else {
+          app_key = process.env.ApiKey_RJ;
+          app_secret = process.env.ApiSecret_RJ;
+        }
 
-      do {
+       do {
         const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
           call: 'ListarProdutos',
           app_key: app_key,
@@ -72,24 +48,25 @@ export default {
         todosProdutos = todosProdutos.concat(produtos);
         
         pagina++;
-      } while (todosProdutos.length < totalDeRegistros);
+      } while (todosProdutos.length < totalDeRegistros); 
+      
+      for (const produto of todosProdutos) {
+        await new Promise(resolve => {
+          setTimeout(async () => {
+            await this.addProdutos(produto);
+            resolve();
+          }, 1000); 
+        });
+      }
 
-      return todosProdutos;
+      res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
     } catch (error) {
       console.error('Erro ao listar produtos:', error);
-      next(error);
+      res.status(500).json({ success: false, message: 'Erro ao inserir produtos.' });
     }
   },
 
-  async truncateprodutos({ cd_estabelecimento }, next) {
-  try {
-    await db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } });
-    return res.status(200).json({ 'status': "Produto deletado" });
-  } catch (err) {
-    next(err);
-  }
-},
-  
+ 
   async addProdutos(produto) {
     const {
       aliquota_cofins,
