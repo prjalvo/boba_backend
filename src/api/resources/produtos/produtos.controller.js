@@ -62,7 +62,7 @@ const listarProdutos = async (cd_estabelecimento,res, next) => {
     //return todosProdutos;
   } catch (error) {
     console.error('Erro ao listar produtos:', error);
-    return [];
+    //return [];
   }
 }
 
