@@ -8,14 +8,6 @@ import { validateEmail } from './../../../functions.js';
 import util from 'util';
 import axios from 'axios';
 
-async function truncateprodutos(cd_estabelecimento, res, next) {
-  try {
-    await db.produtos.destroy({ where: { cd_estabelecimento } });
-    return res.status(200).json({ 'status': "Produto deletado" });
-  } catch (err) {
-    next(err);
-  }
-}
 
 export default {
   async InserirProdutos(req, res, next) {
@@ -89,6 +81,15 @@ export default {
     }
   },
 
+  async truncateprodutos(cd_estabelecimento, res, next) {
+  try {
+    await db.produtos.destroy({ where: { cd_estabelecimento } });
+    return res.status(200).json({ 'status': "Produto deletado" });
+  } catch (err) {
+    next(err);
+  }
+},
+  
   async addProdutos(produto) {
     const {
       aliquota_cofins,
