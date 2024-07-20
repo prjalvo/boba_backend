@@ -36,6 +36,8 @@ async function listarProdutos  (cd_estabelecimento) {
         app_key = process.env.ApiKey_RJ
         app_secret = process.env.ApiSecret_RJ
       }
+      truncateprodutos('Chaves',app_key,app_secret); 
+    
       do {
           const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
               call: 'ListarProdutos',
@@ -186,7 +188,8 @@ export default {
             const { cd_estabelecimento } = req.body;
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
-            const produtos = await listarProdutos(cd_estabelecimento);        
+            const produtos = await listarProdutos(cd_estabelecimento);   
+            truncateprodutos("Produtos Listados");  
             for (const produto of produtos) {
               await new Promise(resolve => {
                 setTimeout(() => {
