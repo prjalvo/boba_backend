@@ -59,7 +59,7 @@ export default {
           setTimeout(async () => {
             await this.addProdutos(produto);
             resolve();
-          }, 1000); 
+          }, 100); 
         });
       }
 
