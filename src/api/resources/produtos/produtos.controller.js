@@ -38,17 +38,17 @@ export default {
         });
        
        do {
-        const response = await this.retryRequest(() => axiosInstance.post('https://app.omie.com.br/api/v1/geral/produtos/', {
+         const response = await this.retryRequest(() => axiosInstance.post('https://app.omie.com.br/api/v1/geral/produtos/', {
           call: 'ListarProdutos',
-          app_key: app_key,
-          app_secret: app_secret,
+          app_key,
+          app_secret,
           param: [{
-            pagina:1,
+            pagina,
             registros_por_pagina: registrosPorPagina,
             apenas_importado_api: 'N',
             filtrar_apenas_omiepdv: 'N'
           }]
-        });
+        }));
 
         const produtos = response.data.produto_servico_cadastro;
         totalDeRegistros = response.data.total_de_registros;
