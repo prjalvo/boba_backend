@@ -17,10 +17,7 @@ async function truncateprodutos(cd_estabelecimento,res, next) {
   })
 }
 
-  
-
-
-module.exports = {       
+export default {     
       async InserirProdutos(req,res,next){
            try {
             const { cd_estabelecimento } = req.body;
@@ -63,7 +60,7 @@ module.exports = {
       app_key = process.env.ApiKey_RJ;
       app_secret = process.env.ApiSecret_RJ;
     }
-
+    console.log('Chaves', app_key, app_secret);
     do {
       const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
         call: 'ListarProdutos',
