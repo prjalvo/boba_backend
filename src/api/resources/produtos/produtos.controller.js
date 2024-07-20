@@ -13,7 +13,7 @@ export default {
   async InserirProdutos(req, res, next) {
     try {
       const { cd_estabelecimento } = req.body;
-      await this.truncateprodutos(cd_estabelecimento,next);            
+      //await this.truncateprodutos(cd_estabelecimento,next);            
       console.log("Estabelecimento: ", cd_estabelecimento);
       const produtos = await this.listarProdutos(req.body, next);  
       await this.truncateprodutos("Produtos Listados", res, next);  
