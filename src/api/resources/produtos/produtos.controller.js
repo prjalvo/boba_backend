@@ -8,6 +8,19 @@ import { validateEmail } from './../../../functions.js';
 import util from 'util';
 import axios from 'axios';
 
+async function retryRequest(requestFn, retries = 3, delay = 2000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await requestFn();
+    } catch (error) {
+      if (i === retries - 1) {
+        throw error;
+      }
+      console.log(`Tentativa ${i + 1} falhou. Repetindo em ${delay / 1000} segundos...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
 export default {
   async InserirProdutos(req, res, next) {
