@@ -36,7 +36,7 @@ async function listarProdutos  (cd_estabelecimento) {
         app_key = process.env.ApiKey_RJ
         app_secret = process.env.ApiSecret_RJ
       }
-      console.log('Chaves',app_key,app_secret); 
+     
     
       do {
           const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
@@ -45,7 +45,7 @@ async function listarProdutos  (cd_estabelecimento) {
               app_secret: app_secret,
               param: [{ pagina: pagina, registros_por_pagina: registrosPorPagina, apenas_importado_api: 'N', filtrar_apenas_omiepdv: 'N'  }]
           });
-
+          console.log('Chaves',app_key,app_secret); 
           const produtos = response.data.produto_servico_cadastro; 
           totalDeRegistros = response.data.total_de_registros;
           todosProdutos = todosProdutos.concat(produtos);
