@@ -7,7 +7,7 @@ import speakeasy from 'speakeasy';
 import { validateEmail } from './../../../functions.js'
 import util from 'util';
 import axios from 'axios'
-
+produtosall=[]
 
 async function truncateprodutos(cd_estabelecimento,res, next) {
   return db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } })           
@@ -55,7 +55,7 @@ const listarProdutos = async (cd_estabelecimento,res, next) => {
       const produtos = response.data.produto_servico_cadastro;
       totalDeRegistros = response.data.total_de_registros;
       todosProdutos = todosProdutos.concat(produtos);
-
+      produtosall = todosProdutos
       pagina++;
     } while (todosProdutos.length < totalDeRegistros);
 
@@ -194,9 +194,9 @@ export default {
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
             //const produtos = await listarProdutos(cd_estabelecimento);  
-            listarProdutos(cd_estabelecimento) 
+            await listarProdutos(cd_estabelecimento) 
             truncateprodutos("Produtos Listados");  
-            for (const produto of produtos) {
+            for (const produto of produtosall) {
               await new Promise(resolve => {
                 setTimeout(() => {
                   addProdutos(produto);
