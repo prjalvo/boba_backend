@@ -46,7 +46,7 @@ export default {
           app_key,
           app_secret,
           param: [{
-            pagina,
+            pagina:1,
             registros_por_pagina: registrosPorPagina,
             apenas_importado_api: 'N',
             filtrar_apenas_omiepdv: 'N'
