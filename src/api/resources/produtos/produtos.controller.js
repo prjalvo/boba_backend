@@ -17,54 +17,6 @@ async function truncateprodutos(cd_estabelecimento,res, next) {
   })
 }
 
-const listarProdutos = async (cd_estabelecimento, res, next) => {
-  try {
-    let pagina = 1;
-    const registrosPorPagina = 1000;
-    let totalDeRegistros = 0;
-    let todosProdutos = [];
-    let app_key = "";
-    let app_secret = "";
-
-    if (cd_estabelecimento === 15) {
-      app_key = process.env.ApiKey_SP;
-      app_secret = process.env.ApiSecret_SP;
-    } else if (cd_estabelecimento === 5) {
-      app_key = process.env.ApiKey_ES;
-      app_secret = process.env.ApiSecret_ES;
-    } else {
-      app_key = process.env.ApiKey_RJ;
-      app_secret = process.env.ApiSecret_RJ;
-    }
-
-    do {
-      const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
-        call: 'ListarProdutos',
-        app_key: app_key,
-        app_secret: app_secret,
-        param: [{
-          pagina: 1,
-          registros_por_pagina: 500,
-          apenas_importado_api: 'N',
-          filtrar_apenas_omiepdv: 'N'
-        }]
-      });
-
-      console.log('Chaves', app_key, app_secret);
-      const produtos = response.data.produto_servico_cadastro;
-      totalDeRegistros = response.data.total_de_registros;
-      todosProdutos = todosProdutos.concat(produtos);
-      
-      pagina++;
-    } while (todosProdutos.length < totalDeRegistros);
-
-    return todosProdutos;
-  } catch (error) {
-    console.error('Erro ao listar produtos:', error);
-    return [];
-  }
-}
-
   async function addProdutos(produto) {    
     const produto1 = {
       aliquota_cofins: produto.aliquota_cofins,
@@ -192,7 +144,7 @@ export default {
             const { cd_estabelecimento } = req.body;
             truncateprodutos(cd_estabelecimento);            
             console.log("Estabelecimento: ",cd_estabelecimento)
-            const produtos = await listarProdutos(cd_estabelecimento, next.bind(this));  
+            const produtos = await this.listarProdutos(cd_estabelecimento, next.bind(this));  
             //await listarProdutos(cd_estabelecimento) 
             truncateprodutos("Produtos Listados");  
             for (const produto of produtosall) {
@@ -210,6 +162,53 @@ export default {
           }
         },    
 
+  async listarProdutos(cd_estabelecimento, callback) {
+  try {
+    let pagina = 1;
+    const registrosPorPagina = 1000;
+    let totalDeRegistros = 0;
+    let todosProdutos = [];
+    let app_key = "";
+    let app_secret = "";
+
+    if (cd_estabelecimento === 15) {
+      app_key = process.env.ApiKey_SP;
+      app_secret = process.env.ApiSecret_SP;
+    } else if (cd_estabelecimento === 5) {
+      app_key = process.env.ApiKey_ES;
+      app_secret = process.env.ApiSecret_ES;
+    } else {
+      app_key = process.env.ApiKey_RJ;
+      app_secret = process.env.ApiSecret_RJ;
+    }
+
+    do {
+      const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
+        call: 'ListarProdutos',
+        app_key: app_key,
+        app_secret: app_secret,
+        param: [{
+          pagina: 1,
+          registros_por_pagina: 500,
+          apenas_importado_api: 'N',
+          filtrar_apenas_omiepdv: 'N'
+        }]
+      });
+
+      console.log('Chaves', app_key, app_secret);
+      const produtos = response.data.produto_servico_cadastro;
+      totalDeRegistros = response.data.total_de_registros;
+      todosProdutos = todosProdutos.concat(produtos);
+      
+      pagina++;
+    } while (todosProdutos.length < totalDeRegistros);
+
+    return todosProdutos;
+  } catch (error) {
+    console.error('Erro ao listar produtos:', error);
+    return [];
+  }
+},
 
    async getAllProdutos(req, res, next) {
     try {
