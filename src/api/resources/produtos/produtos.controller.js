@@ -49,7 +49,7 @@ export default {
     let todosProdutos = [];
     let app_key = "";
     let app_secret = "";
-
+    console.log('Chaves', app_key, app_secret); 
     if (cd_estabelecimento === 15) {
       app_key = process.env.ApiKey_SP;
       app_secret = process.env.ApiSecret_SP;
