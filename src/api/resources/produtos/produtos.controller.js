@@ -11,11 +11,14 @@ import axios from 'axios';
 
 export default {
   async InserirProdutos(req, res, next) {
+     try {
       let pagina = 1;
       const registrosPorPagina = 1000;
       let totalDeRegistros = 0;
       let todosProdutos = [];
-    try {
+      let app_key=""
+      app_secret="" 
+   
       const { cd_estabelecimento } = req.body;
       await db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } });            
       console.log("Estabelecimento: ", cd_estabelecimento);
