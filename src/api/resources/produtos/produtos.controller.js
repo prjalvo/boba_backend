@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt-nodejs';
 import speakeasy from 'speakeasy';
 import { validateEmail } from './../../../functions.js'
 import util from 'util';
-
+import axios from 'axios'
 
 
 async function truncateprodutos(cd_stabelecimento) {
