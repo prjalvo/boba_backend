@@ -18,7 +18,7 @@ async function truncateprodutos(cd_estabelecimento,res, next) {
   })
 }
 
-async listarProdutos(cd_estabelecimento, res, next) {
+const listarProdutos = async (cd_estabelecimento) => {
   try {
     let pagina = 1;
     const registrosPorPagina = 1000;
