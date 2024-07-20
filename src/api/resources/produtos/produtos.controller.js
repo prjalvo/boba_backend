@@ -33,13 +33,14 @@ export default {
           app_secret = process.env.ApiSecret_RJ;
         }
 
+       console.log('Chaves: ',app_key,app_secret) 
        do {
         const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
           call: 'ListarProdutos',
           app_key: app_key,
           app_secret: app_secret,
           param: [{
-            pagina,
+            pagina:1,
             registros_por_pagina: registrosPorPagina,
             apenas_importado_api: 'N',
             filtrar_apenas_omiepdv: 'N'
