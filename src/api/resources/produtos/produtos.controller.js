@@ -55,12 +55,7 @@ export default {
       } while (todosProdutos.length < totalDeRegistros); 
       
       for (const produto of todosProdutos) {
-        await new Promise(resolve => {
-          setTimeout(async () => {
-            await this.addProdutos(produto);
-            resolve();
-          }, 100); 
-        });
+        await this.addProdutos(produto);           
       }
 
       res.status(200).json({ success: true, message: 'Produtos adicionados com sucesso.' });
