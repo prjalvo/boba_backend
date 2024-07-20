@@ -9,7 +9,7 @@ import util from 'util';
 import axios from 'axios'
 
 
-async function truncateprodutos(cd_estabelecimento) {
+async function truncateprodutos(cd_estabelecimento,res, next) {
   return db.produtos.destroy({ where: { cd_estabelecimento:cd_estabelecimento } })           
   .then(re => {
       return res.status(200).json({ 'status': "Produto detelado" });
@@ -18,7 +18,7 @@ async function truncateprodutos(cd_estabelecimento) {
   })
 }
 
-async function listarProdutos(cd_estabelecimento) {
+async function listarProdutos(cd_estabelecimento, res, next) {
   try {
     let pagina = 1;
     const registrosPorPagina = 1000;
