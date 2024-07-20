@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 async function truncateprodutos(cd_stabelecimento) {
-  return db.produto.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })           
+  return db.produtos.destroy({ where: { cd_stabelecimento:cd_stabelecimento } })           
   .then(re => {
       return res.status(200).json({ 'status': "Produto detelado" });
   }).catch(err => {
