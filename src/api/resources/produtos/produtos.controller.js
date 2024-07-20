@@ -33,8 +33,12 @@ export default {
           app_secret = process.env.ApiSecret_RJ;
         }
 
+        const axiosInstance = axios.create({
+          timeout: 60000, // Defina um tempo limite maior (60 segundos)
+        });
+       
        do {
-        const response = await axios.post('https://app.omie.com.br/api/v1/geral/produtos/', {
+        const response = await this.retryRequest(() => axiosInstance.post('https://app.omie.com.br/api/v1/geral/produtos/', {
           call: 'ListarProdutos',
           app_key: app_key,
           app_secret: app_secret,
