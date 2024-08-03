@@ -84,7 +84,7 @@ export default {
                     depositante: depositante ? depositante : filiais.depositante,                      
                     cd_estabelecimento: cd_estabelecimento ? cd_estabelecimento : filiais.cd_estabelecimento,                               
                     cnpj: cnpj ? cnpj : filiais.cnpj                     
-                }, { where: { id: id } })
+                }, { where: { cd_estabelecimento: cd_estabelecimento } })
             })
             .then(filial => {
                 if (filial) {
