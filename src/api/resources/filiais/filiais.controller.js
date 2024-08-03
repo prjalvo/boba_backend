@@ -56,7 +56,22 @@ export default {
             next(err);
         })
     },
-
+  async getFilialid(req, res, next) {
+    const { id } = req.body;
+    try {
+      const filial = await db.filiais.findOne({ where: { id:id }, paranoid: false });
+      
+      if (filial) {
+        return res.status(200).json({ success: true, data: filial });
+      } else {
+        return res.status(500).json({ success: false, message: 'Filial não encontrado.' });
+      }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  },
+    
      async filiaisUpdate(req,res,next){
         const { nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
         
