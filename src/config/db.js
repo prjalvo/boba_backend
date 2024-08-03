@@ -8,7 +8,7 @@ export default {
     
     dialectOptions: {
         ssl: {
-          require: true,
+          require: false,
           rejectUnauthorized: false // Use this option for self-signed certificates
         }
       },   
