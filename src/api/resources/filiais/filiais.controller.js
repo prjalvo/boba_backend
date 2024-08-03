@@ -7,11 +7,9 @@ import speakeasy from 'speakeasy';
 import { validateEmail } from './../../../functions.js'
 import util from 'util';
 
-
-
 export default {
     async addFiliais(req, res, next) {
-        const { nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
+        const { nome, depositante,cd_estabelecimento,cnpj } = req.body;
         db.filiais.findOne({ where: { nome: nome }, paranoid: false })
             .then(find => {
                 if (find) {
@@ -20,18 +18,14 @@ export default {
                 return db.filiais.create({
                     nome: nome,                    
                     depositante: depositante,                      
-                    cd_estabelecimento: cd_estabelecimento,
-                    api_key: api_key,
-                    api_secret: api_secret,
-                    logistica: logistica,
-                    processar: processar,                    
+                    cd_estabelecimento: cd_estabelecimento,                                  
                     cnpj: cnpj
                 })
 
             })
-            .then(user => {
-                if (user) {
-//                   return res.status(200).json({ success: true, msg: "New Registration added." });
+            .then(filial => {
+                if (filial) {
+                  return res.status(200).json({ success: true, msg: "New Registration added." });
                 }
                 else
                     res.status(500).json({ 'success': false });
@@ -41,7 +35,6 @@ export default {
                 next(err);
             })
     },
-
      async getAllFiliais(req,res,next){
         db.filiais.findAll({ })
         .then(filiais => {
