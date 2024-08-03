@@ -68,8 +68,8 @@ export default {
      async filiaisUpdate(req,res,next){
         const { nome, depositante,cd_estabelecimento,cnpj } = req.body;        
         db.filiais.findOne({ where: { cd_estabelecimento: cd_estabelecimento }, paranoid: false })
-            .then(filial => {
-                if (!filial) {
+            .then(filiais => {
+                if (!filiais) {
                     throw new RequestError('Filial Não encontrada', 409);
                 }
                 return db.filiais.update({
@@ -79,8 +79,8 @@ export default {
                     cnpj: cnpj ? cnpj : filiais.cnpj                     
                 }, { where: { cd_estabelecimento: cd_estabelecimento } })
             })
-            .then(filial => {
-                if (filial) {
+            .then(filiais => {
+                if (filiais) {
                     return res.status(200).json({ success: true, msg: "Filial Atualizada com Sucesso"});
                 }
                 else
