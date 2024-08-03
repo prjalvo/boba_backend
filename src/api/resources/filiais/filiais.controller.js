@@ -73,27 +73,22 @@ export default {
   },
     
      async filiaisUpdate(req,res,next){
-        const { nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
-        
-        db.filiais.findOne({ where: { cd_estabelecimento: id }, paranoid: false })
-            .then(user => {
-                if (!user) {
-                    throw new RequestError('User is not found', 409);
+        const { nome, depositante,cd_estabelecimento,cnpj } = req.body;        
+        db.filiais.findOne({ where: { cd_estabelecimento: cd_estabelecimento }, paranoid: false })
+            .then(filial => {
+                if (!filial) {
+                    throw new RequestError('Filial Não encontrada', 409);
                 }
                 return db.filiais.update({
                     nome: nome ? nome : filiais.nome,                    
                     depositante: depositante ? depositante : filiais.depositante,                      
-                    cd_estabelecimento: cd_estabelecimento ? cd_estabelecimento : filiais.cd_estabelecimento,
-                    api_key: api_key ? api_key : filiais.api_key,
-                    api_secret: api_secret ? api_secret : filiais.api_secret,
-                    logistica: logistica ? logistica : filiais.logistica,
-                    processar: processar ? processar : filiais.processar,                    
+                    cd_estabelecimento: cd_estabelecimento ? cd_estabelecimento : filiais.cd_estabelecimento,                               
                     cnpj: cnpj ? cnpj : filiais.cnpj                     
                 }, { where: { id: id } })
             })
-            .then(user => {
-                if (user) {
-                    return res.status(200).json({ success: true, msg: "User update successsfully"});
+            .then(filial => {
+                if (filial) {
+                    return res.status(200).json({ success: true, msg: "Filial Atualizada com Sucesso"});
                 }
                 else
                     res.status(500).json({ 'success': false });
