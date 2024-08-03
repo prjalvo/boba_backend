@@ -49,7 +49,7 @@ export default {
                 return res.status(200).json({ success: true, data:filiais});
             }
             else
-                res.status(500).json({ 'success': false });
+                res.status(200).json({ 'success': false });
         })
         .catch(err => {
             console.log(err)
@@ -64,7 +64,7 @@ export default {
       if (filial) {
         return res.status(200).json({ success: true, data: filial });
       } else {
-        return res.status(500).json({ success: false, message: 'Filial não encontrado.' });
+        return res.status(200).json({ success: false, message: 'Filial não encontrado.' });
       }
     } catch (err) {
       console.log(err);
