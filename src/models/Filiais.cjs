@@ -1,7 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const filiais = sequelize.define('filiais', {
-    id: {type: DataTypes.INTEGER,primaryKey: true},
+  const filiais = sequelize.define('filiais', {  
     cd_estabelecimento: {type: DataTypes.INTEGER,primaryKey: true},
     depositante: DataTypes.STRING,
     nome: DataTypes.STRING,   
