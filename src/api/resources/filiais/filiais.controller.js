@@ -59,7 +59,7 @@ export default {
   async getFilialid(req, res, next) {
     const { id } = req.body;
     try {
-      const filial = await db.filiais.findOne({ where: { id:id }, paranoid: false });
+      const filial = await db.filiais.findOne({ where: { cd_estabelecimento:id }, paranoid: false });
       
       if (filial) {
         return res.status(200).json({ success: true, data: filial });
