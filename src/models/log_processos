@@ -1,0 +1,22 @@
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const log_processos = sequelize.define('log_processos', {
+    id: DataTypes.NUMBER,  
+    nome: DataTypes.STRING,  
+    mensagem: DataTypes.STRING,
+    status: DataTypes.STRING,
+    cd_estabelecimento: DataTypes.NUMBER,  
+    operadora: DataTypes.STRING,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
+  }, 
+  {
+    // schema: 'rede_verde',  
+  }
+  );
+
+  log_processos.associate = function(models) {    
+  };
+
+  return log_processos;
+};
