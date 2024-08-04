@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }, 
   {
     // schema: 'rede_verde',  
+    tableName: 'log_processos'
   }
   );
 
