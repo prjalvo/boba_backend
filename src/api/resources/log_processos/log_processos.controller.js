@@ -1,7 +1,10 @@
 import { db } from '../../../models/index.js';
+import JWT from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 import config from '../../../config/app.js';
 import bcrypt from 'bcrypt-nodejs';
 import speakeasy from 'speakeasy';
+import { validateEmail } from './../../../functions.js'
 import util from 'util';
 
 
