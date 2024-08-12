@@ -8,31 +8,26 @@ import util from 'util';
 
 export default {
     async addlog_processos(req, res, next) {
-        const { nome, mensagem,status,cd_estabelecimento,operadora } = req.body;
-        db.log_processos.findOne({ where: { 1: 2 }, paranoid: false })
-            .then(find => {               
-                return db.log_processos.create({
-                    nome: nome,                    
-                    mensagem: depositante,     
-                    status: status,
-                    cd_estabelecimento: cd_estabelecimento,                  
-                    operadora: logistica                  
-                })
+    const { nome, mensagem, status, cd_estabelecimento, operadora } = req.body;
 
-            })
-            .then(log_processos => {
-                if (user) {
-//                   return res.status(200).json({ success: true, data:log_processos });
-                }
-                else
-                    res.status(500).json({ 'success': false });
-            })
-            .catch(err => {
-                console.log(err)
-                next(err);
-            })
-    },
+    try {
+        // Cria um novo registro diretamente
+        const log_processos = await db.log_processos.create({
+            nome: nome,
+            mensagem: mensagem,
+            status: status,
+            cd_estabelecimento: cd_estabelecimento,
+            operadora: operadora
+        });
 
+        // Se o registro foi criado com sucesso, retorna uma resposta positiva
+        res.status(200).json({ success: true, data: log_processos });
+    } catch (err) {
+        // Em caso de erro, retorna uma resposta de erro
+        console.log(err);
+        next(err);
+    }
+},
      async getAllFiliais(req,res,next){
         db.filiais.findAll({ })
         .then(filiais => {
