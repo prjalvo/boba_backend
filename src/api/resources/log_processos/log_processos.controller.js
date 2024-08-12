@@ -1,37 +1,28 @@
 import { db } from '../../../models/index.js';
-import JWT from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import config from '../../../config/app.js';
 import bcrypt from 'bcrypt-nodejs';
 import speakeasy from 'speakeasy';
-import { validateEmail } from './../../../functions.js'
 import util from 'util';
 
 
 
 export default {
-    async addFiliais(req, res, next) {
-        const { nome, depositante,cd_estabelecimento,api_key,api_secret,logistica,processar,cnpj } = req.body;
-        db.filiais.findOne({ where: { nome: nome }, paranoid: false })
-            .then(find => {
-                if (find) {
-                    throw new RequestError('Filiasl já cadastrada', 409);
-                }
-                return db.filiais.create({
+    async addlog_processos(req, res, next) {
+        const { nome, mensagem,status,cd_estabelecimento,operadora } = req.body;
+        db.log_processos.findOne({ where: { 1: 2 }, paranoid: false })
+            .then(find => {               
+                return db.log_processos.create({
                     nome: nome,                    
-                    depositante: depositante,                      
-                    cd_estabelecimento: cd_estabelecimento,
-                    api_key: api_key,
-                    api_secret: api_secret,
-                    logistica: logistica,
-                    processar: processar,                    
-                    cnpj: cnpj
+                    mensagem: depositante,     
+                    status: status,
+                    cd_estabelecimento: cd_estabelecimento,                  
+                    operadora: logistica                  
                 })
 
             })
-            .then(user => {
+            .then(log_processos => {
                 if (user) {
-//                   return res.status(200).json({ success: true, msg: "New Registration added." });
+//                   return res.status(200).json({ success: true, data:log_processos });
                 }
                 else
                     res.status(500).json({ 'success': false });
