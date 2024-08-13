@@ -27,12 +27,12 @@ export default {
         res.status(200).json({ success: true, data: log_processos });
     } catch (err) {
         // Em caso de erro, retorna uma resposta de erro
-        res.status(400).json({ 'success': false,'erro:' err });
+        res.status(400).json({ 'success': false,err });
         next(err);
     }
 },
      async getlog_processos(req,res,next){
-        db.log_processos.findAll({ })
+        db.log_processos.findAll({order: [['createdAt', 'DESC']],include: [{ model: db.detalhe_log}] })
         .then(log_processos => {
             if (log_processos) {
                 return res.status(200).json({ success: true, data:log_processos});
