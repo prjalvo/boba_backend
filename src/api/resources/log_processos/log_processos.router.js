@@ -6,7 +6,7 @@ import { validateBody, schemas } from '../../../middleware/validator.js';
 
 export const log_processosRouter = express.Router();
 log_processosRouter.route('/register').post(log_processosController.addlog_processos);
-log_processosRouter.route('/getlog_processos').get(sanitize(), jwtStrategy, log_processosController.getlog_processos);
+log_processosRouter.route('/getlog_processos').get(log_processosController.getlog_processos);
 log_processosRouter.route('/update').post(jwtStrategy, log_processosController.filiaisUpdate);
 log_processosRouter.route('/delete').post(sanitize(), jwtStrategy, log_processosController.deleteFiliais);
 
