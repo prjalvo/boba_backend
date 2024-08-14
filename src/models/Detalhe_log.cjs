@@ -3,9 +3,13 @@ module.exports = (sequelize, DataTypes) => {
   const detalhe_log = sequelize.define('detalhe_log', {   
     mensagem: DataTypes.STRING,
     status: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
+    createdat: DataTypes.DATE,
+    updatedat: DataTypes.DATE,
     id_log:DataTypes.INTEGER,
+    nnf: DataTypes.STRING,
+    status: DataTypes.STRING,
+    chavenfe: DataTypes.STRING,
+    pedido: DataTypes.STRING
   }, 
   {
     // schema: 'rede_verde',  
