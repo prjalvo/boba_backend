@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
   }, 
   {
     // schema: 'rede_verde',  
-    tableName: 'detalhe_log'
+    tableName: 'detalhe_log',
+    timestamps: false,  // Desabilita o gerenciamento automático de timestamps
+    createdAt: 'createdat',  // Nome do campo para a data de criação
+    updatedAt: 'updatedat'   // Nome do campo para a data de atualização
   }
   );
 
