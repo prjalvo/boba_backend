@@ -164,7 +164,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     valor_unitario: {
       type: DataTypes.NUMERIC(10, 3)
-    }
+    },
+     cd_estabelecimento: {
+      type: DataTypes.INTEGER
+    },
   }, {
     timestamps: false,  // Desabilita o gerenciamento automático de timestamps
     createdAt: 'createdat',  // Nome do campo para a data de criação
