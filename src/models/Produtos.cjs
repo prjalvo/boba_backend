@@ -165,7 +165,11 @@ module.exports = (sequelize, DataTypes) => {
     valor_unitario: {
       type: DataTypes.NUMERIC(10, 3)
     }
-  }, {});
+  }, {
+    timestamps: false,  // Desabilita o gerenciamento automático de timestamps
+    createdAt: 'createdat',  // Nome do campo para a data de criação
+    updatedAt: 'updatedat'   // Nome do campo para a data de atualização
+  });
 
   Produtos.associate = function(models) {
     // Defina associações aqui, se necessário
