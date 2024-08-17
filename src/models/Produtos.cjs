@@ -166,7 +166,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.NUMERIC(10, 3)
     },
      cd_estabelecimento: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
   }, {
     timestamps: false,  // Desabilita o gerenciamento automático de timestamps
