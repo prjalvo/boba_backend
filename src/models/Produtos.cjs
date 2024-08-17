@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     cfop: {
       type: DataTypes.STRING
     },
-    codInt_familia: {
+    codint_familia: {
       type: DataTypes.STRING
     },
     codigo: {
@@ -156,7 +156,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.NUMERIC(10, 2),
       defaultValue: 0
     },
-    tipoItem: {
+    tipoitem: {
       type: DataTypes.STRING
     },
     unidade: {
