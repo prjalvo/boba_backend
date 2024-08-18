@@ -45,6 +45,40 @@ export default {
             next(err);
         })
     },
+    async addCTRL(req, res, next) {
+    const { nnf, status, cd_estabelecimento, etapa, demissaonfe } = req.body;
+    try {
+        // Cria um novo registro diretamente
+        const ctrl_process = await db.controle_proces_ent.create({
+            nnf: nnf,            
+            status: status,
+            cd_estabelecimento: cd_estabelecimento,
+            etapa: etapa,
+            demissaonfe: demissaonfe
+        });
 
+        // Se o registro foi criado com sucesso, retorna uma resposta positiva
+        res.status(200).json({ success: true, data: ctrl_process });
+    } catch (err) {
+        // Em caso de erro, retorna uma resposta de erro
+        res.status(400).json({ 'success': false,err });
+        next(err);
+    }
+  },
+
+    async getCTRL(req,res,next){
+        db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']]})
+        .then(log_processos => {
+            if (log_processos) {
+                return res.status(200).json({ success: true, data:log_processos});
+            }
+            else
+                res.status(500).json({ 'success': false });
+        })
+        .catch(err => {
+            console.log(err)
+            next(err);
+        })
+    }   
     
 }
