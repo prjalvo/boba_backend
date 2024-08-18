@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const controle_proces_ent = sequelize.controle_proces_ent', {
+  const controle_proces_ent = sequelize.controle_proces_ent, {
     id: {type: DataTypes.INTEGER,primaryKey: true},
     nnf: DataTypes.STRING,
     status: DataTypes.STRING,    
