@@ -8,4 +8,7 @@ export const log_processosRouter = express.Router();
 log_processosRouter.route('/register').post(log_processosController.addlog_processos);
 log_processosRouter.route('/getlog_processos').get(log_processosController.getlog_processos);
 
+log_processosRouter.route('/addCTRL').post(log_processosController.addCTRL);
+log_processosRouter.route('/getCTRL').get(log_processosController.getCTRL);
+
 
