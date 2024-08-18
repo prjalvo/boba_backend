@@ -79,6 +79,47 @@ export default {
             console.log(err)
             next(err);
         })
-    }   
+    },
+     async CTRLUpdate(req,res,next){
+        const { id,nnf, status, cd_estabelecimento, etapa, demissaonfe } = req.body;        
+        db.controle_proces_ent.findOne({ where: { id: id }, paranoid: false })
+            .then(controle_proces_ent => {
+                if (!controle_proces_ent) {
+                    throw new RequestError('CTRL Não encontrada', 409);
+                }
+                return db.controle_proces_ent.update({
+                    nnf: nnf ? nnf : controle_proces_ent.nnf,            
+                    status: status ? status : controle_proces_ent.status  ,
+                    cd_estabelecimento: cd_estabelecimento ? cd_estabelecimento : controle_proces_ent.cd_estabelecimento,
+                    etapa: etapa ? etapa : controle_proces_ent.etapa,
+                    demissaonfe: demissaonfe ? demissaonfe :  controle_proces_ent.demissaonfe              
+                }, { where: { id: id } })
+            })
+            .then(controle_proces_ent => {
+                if (controle_proces_ent) {
+                    return res.status(200).json({ success: true, msg: "CTRL Atualizada com Sucesso"});
+                }
+                else
+                    res.status(500).json({ 'success': false });
+            })
+            .catch(err => {
+                console.log(err)
+                next(err);
+            })
+    },
+      async deleteCTRL(req, res, next) {
+        db.controle_proces_ent.findOne({ where: { id: req.body.id} })
+            .then(data => {
+                if (data) {
+                    return db.controle_proces_ent.destroy({ where: { id: req.body.id } }).then(r => [r, data])
+                }
+                throw new RequestError('User is not found', 409)
+            })
+            .then(re => {
+                return res.status(200).json({ 'status': "deleted userlist Seccessfully" });
+            }).catch(err => {
+                next(err)
+            })
+    }
     
 }
