@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'controle_proces_ent'
   });
 
-  controle_proces_ent.associate = function(models) {      
+  controle_proces_ent.associate = function(models) {   
+    models.controle_proces_ent.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
   };
   return controle_proces_ent;
 };
