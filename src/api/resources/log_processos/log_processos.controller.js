@@ -66,20 +66,53 @@ export default {
     }
   },
 
-    async getCTRL(req,res,next){
-        db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']]})
-        .then(log_processos => {
-            if (log_processos) {
-                return res.status(200).json({ success: true, data:log_processos});
-            }
-            else
-                res.status(500).json({ 'success': false });
-        })
-        .catch(err => {
-            console.log(err)
-            next(err);
-        })
-    },
+    // async getCTRL(req,res,next){
+    //     db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']]})
+    //     .then(log_processos => {
+    //         if (log_processos) {
+    //             return res.status(200).json({ success: true, data:log_processos});
+    //         }
+    //         else
+    //             res.status(500).json({ 'success': false });
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         next(err);
+    //     })
+    // },
+
+    async getCTRL(req, res, next) {
+    try {
+        // Get page and limit from query parameters or set default values
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        // Calculate offset
+        const offset = (page - 1) * limit;
+
+        // Query the database with pagination
+        const log_processos = await db.controle_proces_ent.findAndCountAll({
+            order: [['demissaonfe', 'DESC']],
+            limit: limit,
+            offset: offset
+        });
+
+        if (log_processos) {
+            return res.status(200).json({
+                success: true,
+                data: log_processos.rows,
+                totalRecords: log_processos.count,
+                totalPages: Math.ceil(log_processos.count / limit),
+                currentPage: page
+            });
+        } else {
+            return res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+  },
      async CTRLUpdate(req,res,next){
         const { id,nnf, status, cd_estabelecimento, etapa, demissaonfe } = req.body;        
         db.controle_proces_ent.findOne({ where: { id: id }, paranoid: false })
