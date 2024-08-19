@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   filiais.associate = function(models) {      
+    filiais.hasMany(models.controle_proces_ent, { foreignKey: 'cd_estabelecimento' });
   };
   return filiais;
 };
