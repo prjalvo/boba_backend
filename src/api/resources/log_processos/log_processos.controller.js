@@ -92,7 +92,7 @@ export default {
 
         // Query the database with pagination
         const log_processos = await db.controle_proces_ent.findAndCountAll({
-            order: [['demissaonfe', 'DESC']],
+            order: [['demissaonfe', 'DESC']],include: [{ model: db.filiais}],
             limit: limit,
             offset: offset
         });
