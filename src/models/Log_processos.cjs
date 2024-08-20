@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     nome: DataTypes.STRING,  
     mensagem: DataTypes.STRING,
     status: DataTypes.STRING,
-    cd_estabelecimento: DataTypes.INTEGER,  
+    cd_estabelecimento: DataTypes.STRING,  
     operadora: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
