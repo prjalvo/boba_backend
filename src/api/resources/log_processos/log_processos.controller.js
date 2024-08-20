@@ -32,7 +32,7 @@ export default {
     }
 },
      async getlog_processos(req,res,next){
-        db.log_processos.findAll({order: [['createdAt', 'DESC']],include: [{ model: db.detalhe_log}] })
+        db.log_processos.findAll({order: [['createdAt', 'DESC']],include: [{ model: db.detalhe_log},{ model: db.filiais}] })
         .then(log_processos => {
             if (log_processos) {
                 return res.status(200).json({ success: true, data:log_processos});
