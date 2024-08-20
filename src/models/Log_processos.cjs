@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
   log_processos.associate = function(models) {    
     log_processos.hasMany(models.detalhe_log, { foreignKey: 'id_log' });
-    models.log_processos.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
+    log_processos.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
   };
 
   return log_processos;
