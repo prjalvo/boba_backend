@@ -175,7 +175,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Produtos.associate = function(models) {
-    // Defina associações aqui, se necessário
+   Produtos.controle_proces_ent.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
   };
 
   return Produtos;
