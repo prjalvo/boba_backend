@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Produtos = sequelize.define('produtos', {
+  const produtos = sequelize.define('produtos', {
     aliquota_cofins: {
       type: DataTypes.NUMERIC(10, 2),
       defaultValue: 0
@@ -174,9 +174,9 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: 'updatedat'   // Nome do campo para a data de atualização
   });
 
-  Produtos.associate = function(models) {
+  produtos.associate = function(models) {
    models.produtos.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
   };
 
-  return Produtos;
+  return produtos;
 };
