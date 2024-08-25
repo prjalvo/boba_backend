@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   filiais.associate = function(models) {      
     filiais.hasMany(models.controle_proces_ent, { foreignKey: 'cd_estabelecimento' });
     filiais.hasMany(models.log_processos, { foreignKey: 'cd_estabelecimento' });
-    filiais.hasMany(models.Produtos, { foreignKey: 'cd_estabelecimento' });
+    filiais.hasMany(models.produtos, { foreignKey: 'cd_estabelecimento' });
   };
   return filiais;
 };
