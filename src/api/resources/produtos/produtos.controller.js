@@ -189,7 +189,7 @@ export default {
 
   async getAllProdutos(req, res, next) {
     try {
-      const produtos = await db.produtos.findAll({ paranoid: false,include: [{ model: db.filiais}] });
+      const produtos = await db.produtos.findAll({ order: [['createdat', 'DESC']],include: [{ model: db.filiais}] });
       
       if (produtos) {
         return res.status(200).json({ success: true, data: produtos });
