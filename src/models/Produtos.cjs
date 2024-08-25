@@ -175,7 +175,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Produtos.associate = function(models) {
-   Produtos.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
+   models.produtos.belongsTo(models.filiais, { foreignKey: 'cd_estabelecimento' });
   };
 
   return Produtos;
