@@ -65,21 +65,36 @@ export default {
         next(err);
     }
   },
-   async getCTRL(req,res,next){
-        db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']],
-                                       include: [{model: db.filiais}]})
-        .then(log_processos => {
-            if (log_processos) {
-                 return res.status(200).json({ success: true, data:log_processos});
-             }
-             else
-                 res.status(500).json({ 'success': false });
-         })
-         .catch(err => {
-             console.log(err)
-             next(err);
-         })
-     },
+   const { Op } = require('sequelize');
+
+async getCTRL(req, res, next) {
+    try {
+        // Calcula a data de 40 dias atrás
+        const today = new Date();
+        const fortyDaysAgo = new Date();
+        fortyDaysAgo.setDate(today.getDate() - 40);
+
+        const log_processos = await db.controle_proces_ent.findAll({
+            where: {
+                demissaonfe: {
+                    [Op.gte]: fortyDaysAgo  // Filtra registros com data maior ou igual a 40 dias atrás
+                }
+            },
+            order: [['demissaonfe', 'DESC']],
+            include: [{ model: db.filiais }]
+        });
+
+        if (log_processos) {
+            return res.status(200).json({ success: true, data: log_processos });
+        } else {
+            return res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 
   //   async getCTRL(req, res, next) {
   //   try {
