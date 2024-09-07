@@ -66,7 +66,8 @@ export default {
     }
   },
    async getCTRL(req,res,next){
-        db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']]})
+        db.controle_proces_ent.findAll({order: [['demissaonfe', 'DESC']],
+                                       include: [{model: db.filiais}]})
         .then(log_processos => {
             if (log_processos) {
                  return res.status(200).json({ success: true, data:log_processos});
