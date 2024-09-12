@@ -14,3 +14,8 @@ log_processosRouter.route('/getCTRL').get(log_processosController.getCTRL);
 log_processosRouter.route('/CTRLUpdate').post(log_processosController.CTRLUpdate);
 log_processosRouter.route('/deleteCTRL').get(log_processosController.deleteCTRL);
 
+
+log_processosRouter.route('/getCTRLSaida').get(log_processosController.getCTRLSaida);
+
+log_processosRouter.route('/CTRLUpdateSaida').post(log_processosController.CTRLUpdateSaida);
+
