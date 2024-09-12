@@ -173,6 +173,57 @@ async getCTRL(req, res, next) {
             }).catch(err => {
                 next(err)
             })
+    },
+
+async getCTRLSaida(req, res, next) {
+    try {
+        // Calcula a data de 40 dias atrás
+        const today = new Date();
+        const fortyDaysAgo = new Date();
+        fortyDaysAgo.setDate(today.getDate() - 40);
+
+        const log_processos = await db.controle_proces_saida.findAll({
+            where: {
+                demissaonfe: {
+                    [Op.gte]: fortyDaysAgo  // Filtra registros com data maior ou igual a 40 dias atrás
+                }
+            },
+            order: [['demissaonfe', 'DESC']],
+            include: [{ model: db.filiais }]
+        });
+
+        if (log_processos) {
+            return res.status(200).json({ success: true, data: log_processos });
+        } else {
+            return res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+  },
+async CTRLUpdateSaida(req,res,next){
+        const { id,status } = req.body;        
+        db.controle_proces_saida.findOne({ where: { id: id }, paranoid: false })
+            .then(controle_proces_saida => {
+                if (!controle_proces_saida) {
+                    throw new RequestError('CTRL Não encontrada', 409);
+                }
+                return db.controle_proces_saida.update({                         
+                    status: status ? status : controle_proces_saida.status                         
+                }, { where: { id: id } })
+            })
+            .then(controle_proces_saida => {
+                if (controle_proces_saida) {
+                    return res.status(200).json({ success: true, msg: "CTRL Atualizada com Sucesso"});
+                }
+                else
+                    res.status(500).json({ 'success': false });
+            })
+            .catch(err => {
+                console.log(err)
+                next(err);
+            })
     }
     
 }
