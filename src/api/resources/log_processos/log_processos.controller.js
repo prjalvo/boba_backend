@@ -91,7 +91,7 @@ async getCTRL(req, res, next) {
         console.log(err);
         next(err);
     }
-}
+},
 
 
   //   async getCTRL(req, res, next) {
