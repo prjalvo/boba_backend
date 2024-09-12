@@ -67,17 +67,8 @@ export default {
   },
 async getCTRL(req, res, next) {
     try {
-        // Calcula a data de 40 dias atrás
-        const today = new Date();
-        const fortyDaysAgo = new Date();
-        fortyDaysAgo.setDate(today.getDate() - 40);
-
-        const log_processos = await db.controle_proces_ent.findAll({
-            where: {
-                demissaonfe: {
-                    [Op.gte]: fortyDaysAgo  // Filtra registros com data maior ou igual a 40 dias atrás
-                }
-            },
+       
+        const log_processos = await db.controle_proces_ent.findAll({         
             order: [['demissaonfe', 'DESC']],
             include: [{ model: db.filiais }]
         });
