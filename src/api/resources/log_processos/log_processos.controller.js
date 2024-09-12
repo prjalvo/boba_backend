@@ -180,12 +180,7 @@ async getCTRLSaida(req, res, next) {
         const fortyDaysAgo = new Date();
         fortyDaysAgo.setDate(today.getDate() - 40);
 
-        const log_processos = await db.controle_proces_saida.findAll({
-            where: {
-                demissaonfe: {
-                    [Op.gte]: fortyDaysAgo  // Filtra registros com data maior ou igual a 40 dias atrás
-                }
-            },
+        const log_processos = await db.controle_proces_saida.findAll({           
             order: [['demissaonfe', 'DESC']],
             include: [{ model: db.filiais }]
         });
