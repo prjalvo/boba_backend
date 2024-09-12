@@ -65,8 +65,6 @@ export default {
         next(err);
     }
   },
-   const { Op } = require('sequelize');
-
 async getCTRL(req, res, next) {
     try {
         // Calcula a data de 40 dias atrás
