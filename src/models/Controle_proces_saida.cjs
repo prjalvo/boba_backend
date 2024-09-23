@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     cd_estabelecimento: DataTypes.STRING,
     etapa: DataTypes.STRING,
     createdat: DataTypes.DATE, 
-    demissaonfe: DataTypes.DATE    
+    demissaonfe: DataTypes.DATE,
+    nome_fantasia: DataTypes.STRING
   }, {
       timestamps: false,  // Desabilita o gerenciamento automático de timestamps
       createdAt: 'createdat',  // Nome do campo para a data de criação
