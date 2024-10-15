@@ -33,7 +33,7 @@ function verifyOtp(token) {
         secret: process.env.OTP_KEY,
         encoding: 'base32',
         token: token,
-        step: (30 - Math.floor((new Date().getTime() / 1000.0 % 30))),
+        step: 43200 / 30,
         window: 0
     });
     return expiry
